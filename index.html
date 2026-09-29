@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PeopleDesk | Recursos Humanos</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -19,18 +22,20 @@ body {
 header {
   background: #101c35;
   color: white;
-  padding: 22px 7%;
+  padding: 18px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.logo { font-size: 23px; font-weight: bold; }
+.logo { font-size: 25px; font-weight: bold; }
 .logo span { color: #60a5fa; }
 header small { color: #cbd5e1; }
 
 main {
-  max-width: 1100px;
+  max-width: 1150px;
   margin: 30px auto;
   padding: 0 20px;
 }
@@ -38,18 +43,12 @@ main {
 h1 { margin-bottom: 5px; }
 .subtitle { color: #64748b; margin-top: 0; }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-  gap: 16px;
-  margin: 25px 0;
-}
-
 .card {
   background: white;
   padding: 20px;
   border-radius: 13px;
   box-shadow: 0 3px 15px #0f172a0c;
+  margin-bottom: 20px;
 }
 
 .section-title {
@@ -87,15 +86,53 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 button:hover { background: #1d4ed8; }
+button:disabled { opacity: .6; cursor: not-allowed; }
 
-button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
+.secondary {
+  background: #64748b;
 }
+.secondary:hover { background: #475569; }
+
+.danger {
+  background: #dc2626;
+}
+.danger:hover { background: #b91c1c; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+  gap: 16px;
+  margin: 25px 0;
+}
+
+.stat-label { color: #64748b; font-size: 14px; }
+.stat-number { font-size: 30px; font-weight: bold; margin-top: 10px; }
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+  background: white;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 3px 15px #0f172a0c;
+}
+
+.tab {
+  background: transparent;
+  color: #475569;
+  margin: 0;
+  flex: 1;
+  min-width: 110px;
+}
+
+.tab:hover { background: #eff6ff; color: #1d4ed8; }
+.tab.active { background: #2563eb; color: white; }
 
 .table-wrap { overflow-x: auto; }
 
@@ -115,11 +152,155 @@ th { color: #64748b; font-size: 12px; }
 td { font-size: 14px; }
 
 .badge {
+  display: inline-block;
   background: #dcfce7;
   color: #166534;
   padding: 5px 9px;
   border-radius: 20px;
   font-size: 12px;
+  font-weight: bold;
+}
+
+.message {
+  color: #64748b;
+  font-size: 14px;
+  min-height: 18px;
+}
+
+.time-card {
+  background: #101c35;
+  color: white;
+  border-radius: 18px;
+  padding: 28px 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.clock {
+  font-size: clamp(42px, 9vw, 76px);
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 12px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.date-text { color: #cbd5e1; }
+
+.time-status {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.time-status.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.time-status.orange {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.time-status.red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.deadline {
+  border: 1px solid #2563eb;
+  background: #172b49;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 20px;
+  color: white;
+}
+
+.deadline strong {
+  display: block;
+  color: #60a5fa;
+  font-size: 26px;
+  margin-top: 5px;
+}
+
+.scanner-box {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#reader {
+  width: 100%;
+  max-width: 420px;
+  margin: 18px auto;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.attendance-result {
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 15px;
+  background: #eff6ff;
+  color: #1e40af;
+  text-align: center;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+  gap: 18px;
+}
+
+.employee-card {
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  overflow: hidden;
+  text-align: center;
+  background: white;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.employee-card-header {
+  background: #101c35;
+  color: white;
+  padding: 18px 10px;
+  border-bottom: 5px solid #2563eb;
+}
+
+.employee-card-header span { color: #60a5fa; }
+
+.employee-card-body {
+  padding: 18px 12px;
+}
+
+.employee-card-body h3 {
+  margin: 5px 0;
+  font-size: 17px;
+}
+
+.employee-card-body p {
+  margin: 6px 0;
+  color: #475569;
+  font-size: 13px;
+}
+
+.qr-image {
+  display: flex;
+  justify-content: center;
+  margin: 14px auto;
+  min-height: 128px;
+}
+
+.employee-code {
+  background: #101c35;
+  color: white;
+  padding: 9px;
+  font-weight: bold;
 }
 
 footer {
@@ -129,18 +310,35 @@ footer {
   font-size: 12px;
 }
 
-.message {
-  color: #64748b;
-  font-size: 14px;
-  min-height: 18px;
-}
-
 [hidden] { display: none !important; }
+
+@media print {
+  header, main > h1, main > .subtitle, .tabs,
+  #loginSection, footer, .no-print {
+    display: none !important;
+  }
+
+  body { background: white; }
+  main { margin: 0; padding: 0; max-width: none; }
+  #cardsPage { display: block !important; }
+  #cardsGrid { grid-template-columns: repeat(3,1fr); }
+  .employee-card {
+    break-inside: avoid;
+    border: 1px solid #333;
+    box-shadow: none;
+  }
+  .employee-card-header, .employee-code {
+    background: white !important;
+    color: black !important;
+    border-color: black !important;
+  }
+  .employee-card-header span { color: black !important; }
+  .employee-card-body p { color: black !important; }
+}
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="logo">People<span>Desk</span></div>
   <small>Recursos Humanos</small>
@@ -148,126 +346,177 @@ footer {
 
 <main>
   <h1>Panel de control</h1>
-  <p class="subtitle">Bienvenido al sistema de gestión de personal.</p>
+  <p class="subtitle">Sistema de gestión de personal y asistencia.</p>
 
-  <!-- ACCESO ADMINISTRADOR -->
-  <section class="card" style="margin:20px 0">
+  <!-- LOGIN -->
+  <section class="card" id="loginSection">
     <h2 class="section-title">Acceso de administrador</h2>
-
     <form id="loginForm">
       <div class="form-grid">
         <div>
           <label for="adminEmail">Correo electrónico</label>
-          <input id="adminEmail" type="email"
-                 required placeholder="admin@ejemplo.com"
+          <input id="adminEmail" type="email" required
+                 placeholder="admin@ejemplo.com"
                  autocomplete="username">
         </div>
-
         <div>
           <label for="adminPassword">Contraseña</label>
-          <input id="adminPassword" type="password"
-                 required placeholder="Tu contraseña"
+          <input id="adminPassword" type="password" required
+                 placeholder="Tu contraseña"
                  autocomplete="current-password">
         </div>
       </div>
-
-      <button id="loginButton" type="submit">
-        Iniciar sesión
-      </button>
+      <button id="loginButton" type="submit">Iniciar sesión</button>
       <p id="loginMessage" class="message" aria-live="polite"></p>
     </form>
-
-    <button id="logoutButton" type="button"
-            style="display:none;background:#64748b">
+    <button id="logoutButton" class="secondary" type="button" hidden>
       Cerrar sesión
     </button>
   </section>
 
-  <!-- PANEL DE ADMINISTRADOR -->
+  <!-- PANEL ADMIN -->
   <div id="adminPanel" hidden>
+    <nav class="tabs no-print" aria-label="Secciones">
+      <button class="tab active" data-page="employeesPage">Empleados</button>
+      <button class="tab" data-page="cardsPage">Tarjetas QR</button>
+      <button class="tab" data-page="attendancePage">Asistencia</button>
+    </nav>
 
-    <div class="stats">
-      <div class="card">
-        <div class="stat-label">Empleados registrados</div>
-        <div class="stat-number" id="total">0</div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Personal activo</div>
-        <div class="stat-number" id="active">0</div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Sistema</div>
-        <div class="stat-number"
-             style="font-size:20px;color:#16a34a">
-          En línea
+    <!-- EMPLEADOS -->
+    <section id="employeesPage">
+      <div class="stats">
+        <div class="card">
+          <div class="stat-label">Empleados registrados</div>
+          <div class="stat-number" id="total">0</div>
+        </div>
+        <div class="card">
+          <div class="stat-label">Personal activo</div>
+          <div class="stat-number" id="active">0</div>
+        </div>
+        <div class="card">
+          <div class="stat-label">Sistema</div>
+          <div class="stat-number" style="font-size:20px;color:#16a34a">
+            En línea
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- REGISTRO DE EMPLEADOS -->
-    <section class="card">
-      <h2 class="section-title">Registrar empleado</h2>
-
-      <form id="employeeForm">
-        <div class="form-grid">
-          <div>
-            <label for="name">Nombre completo</label>
-            <input id="name" required
-                   placeholder="Ej. Carlos Martínez">
+      <section class="card">
+        <h2 class="section-title">Registrar empleado</h2>
+        <form id="employeeForm">
+          <div class="form-grid">
+            <div>
+              <label for="name">Nombre completo</label>
+              <input id="name" required placeholder="Ej. Carlos Martínez">
+            </div>
+            <div>
+              <label for="position">Puesto</label>
+              <input id="position" required placeholder="Ej. Auxiliar contable">
+            </div>
+            <div>
+              <label for="department">Departamento</label>
+              <input id="department" required placeholder="Ej. Contabilidad">
+            </div>
+            <div>
+              <label for="code">Código de empleado</label>
+              <input id="code" required placeholder="Ej. EMP-001">
+            </div>
           </div>
+          <button id="registerButton" type="submit">+ Registrar empleado</button>
+          <p id="employeeMessage" class="message" aria-live="polite"></p>
+        </form>
+      </section>
 
-          <div>
-            <label for="position">Puesto</label>
-            <input id="position" required
-                   placeholder="Ej. Auxiliar contable">
-          </div>
-
-          <div>
-            <label for="department">Departamento</label>
-            <input id="department" required
-                   placeholder="Ej. Contabilidad">
-          </div>
-
-          <div>
-            <label for="code">Código de empleado</label>
-            <input id="code" required
-                   placeholder="Ej. EMP-001">
-          </div>
+      <section class="card">
+        <h2 class="section-title">Directorio de empleados</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>PUESTO</th>
+                <th>DEPARTAMENTO</th>
+                <th>ESTADO</th>
+              </tr>
+            </thead>
+            <tbody id="employeeList"></tbody>
+          </table>
         </div>
-
-        <button id="registerButton" type="submit">
-          + Registrar empleado
-        </button>
-        <p id="employeeMessage" class="message"
-           aria-live="polite"></p>
-      </form>
+        <p id="empty" style="color:#94a3b8;text-align:center">
+          Todavía no hay empleados registrados.
+        </p>
+      </section>
     </section>
 
-    <!-- DIRECTORIO -->
-    <section class="card" style="margin-top:22px">
-      <h2 class="section-title">Directorio de empleados</h2>
+    <!-- TARJETAS QR -->
+    <section id="cardsPage" hidden>
+      <section class="card">
+        <h2 class="section-title">Tarjetas identificativas</h2>
+        <p class="subtitle">
+          Tarjetas QR individuales para el personal registrado.
+        </p>
+        <div class="no-print">
+          <button type="button" id="printCards">Imprimir tarjetas</button>
+        </div>
+        <p id="cardsMessage" class="message" aria-live="polite"></p>
+        <div id="cardsGrid" class="cards-grid"></div>
+      </section>
+    </section>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>CÓDIGO</th>
-              <th>NOMBRE</th>
-              <th>PUESTO</th>
-              <th>DEPARTAMENTO</th>
-              <th>ESTADO</th>
-            </tr>
-          </thead>
-          <tbody id="employeeList"></tbody>
-        </table>
-      </div>
+    <!-- ASISTENCIA -->
+    <section id="attendancePage" hidden>
+      <section class="time-card">
+        <div style="color:#bfdbfe;font-weight:bold">
+          CONTROL DE ASISTENCIA
+        </div>
+        <div id="clock" class="clock">--:--:--</div>
+        <div id="dateText" class="date-text">Cargando fecha...</div>
+        <div id="timeStatus" class="time-status green">
+          A tiempo
+        </div>
+        <div class="deadline">
+          Hora límite de entrada
+          <strong>1:00 p. m.</strong>
+        </div>
+      </section>
 
-      <p id="empty"
-         style="color:#94a3b8;text-align:center">
-        Todavía no hay empleados registrados.
-      </p>
+      <section class="card scanner-box">
+        <h2 class="section-title">Escáner de código QR</h2>
+        <p class="subtitle">
+          Coloca la tarjeta del empleado frente a la cámara.
+        </p>
+        <div id="reader"></div>
+        <button id="startScanner" type="button">Iniciar cámara</button>
+        <button id="stopScanner" class="secondary" type="button" hidden>
+          Detener cámara
+        </button>
+        <p id="scannerMessage" class="message" aria-live="polite">
+          Cámara detenida.
+        </p>
+        <div id="scanResult" class="attendance-result" hidden></div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Asistencia de hoy</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>HORA</th>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>PUESTO</th>
+                <th>PUNTUALIDAD</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceList"></tbody>
+          </table>
+        </div>
+        <p id="attendanceEmpty" style="color:#94a3b8;text-align:center">
+          Aún no hay asistencias registradas hoy.
+        </p>
+      </section>
     </section>
   </div>
 </main>
@@ -290,10 +539,13 @@ import {
   collection,
   getDocs,
   addDoc,
+  updateDoc,
+  doc,
+  runTransaction,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-// CONFIGURACIÓN FIREBASE
+// FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyDv0uW_noBsgrlciNbe5R2wt51JrT2fijo",
   authDomain: "peopledesk-52d92.firebaseapp.com",
@@ -307,35 +559,187 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ELEMENTOS
-const loginForm = document.getElementById("loginForm");
-const loginButton = document.getElementById("loginButton");
-const loginMessage = document.getElementById("loginMessage");
-const logoutButton = document.getElementById("logoutButton");
-const adminPanel = document.getElementById("adminPanel");
-
-const employeeForm = document.getElementById("employeeForm");
-const registerButton = document.getElementById("registerButton");
-const employeeMessage = document.getElementById("employeeMessage");
-const employeeList = document.getElementById("employeeList");
-const empty = document.getElementById("empty");
-
-const total = document.getElementById("total");
-const active = document.getElementById("active");
+const $ = id => document.getElementById(id);
+const TZ = "America/El_Salvador";
 
 let employees = [];
 let currentUser = null;
+let scanner = null;
+let scanLocked = false;
+let attendance = [];
 
-// MOSTRAR U OCULTAR EL PANEL
-function setAdminVisible(visible) {
-  adminPanel.hidden = !visible;
-  loginForm.style.display = visible ? "none" : "block";
-  logoutButton.style.display = visible ? "inline-block" : "none";
+// FECHA Y HORA DE EL SALVADOR
+function getClockParts() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+
+  const result = {};
+  parts.forEach(p => {
+    if (p.type !== "literal") result[p.type] = Number(p.value);
+  });
+  return result;
 }
 
-// DIBUJAR DIRECTORIO
-function render() {
-  employeeList.replaceChildren();
+function getDateKey() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+
+  const result = {};
+  parts.forEach(p => {
+    if (p.type !== "literal") result[p.type] = p.value;
+  });
+  return `${result.year}-${result.month}-${result.day}`;
+}
+
+function getDateLabel() {
+  return new Intl.DateTimeFormat("es-SV", {
+    timeZone: TZ,
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
+}
+
+function getTimeLabel(parts = getClockParts()) {
+  const hour = parts.hour % 12 || 12;
+  const suffix = parts.hour >= 12 ? "p. m." : "a. m.";
+  return `${hour}:${String(parts.minute).padStart(2,"0")}:${String(parts.second).padStart(2,"0")} ${suffix}`;
+}
+
+// REGLAS DE COLOR:
+// Antes de 12:55 = verde
+// 12:55 a 12:59 = naranja
+// Desde 13:00 = rojo
+function getPunctuality(parts = getClockParts()) {
+  const minutes = parts.hour * 60 + parts.minute;
+
+  if (minutes < 12 * 60 + 55) {
+    return { label: "A tiempo", color: "green" };
+  }
+
+  if (minutes < 13 * 60) {
+    return { label: "Margen final", color: "orange" };
+  }
+
+  return { label: "Tardío", color: "red" };
+}
+
+function updateClock() {
+  const parts = getClockParts();
+  $("clock").textContent = getTimeLabel(parts);
+  $("dateText").textContent = getDateLabel();
+
+  const status = getPunctuality(parts);
+  $("timeStatus").textContent = status.label;
+  $("timeStatus").className = `time-status ${status.color}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+// NAVEGACIÓN ENTRE PESTAÑAS
+function showPage(pageId) {
+  ["employeesPage", "cardsPage", "attendancePage"].forEach(id => {
+    $(id).hidden = id !== pageId;
+  });
+
+  document.querySelectorAll(".tab").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === pageId);
+  });
+
+  if (pageId === "cardsPage") renderCards();
+  if (pageId === "attendancePage") loadAttendance();
+}
+
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+// AUTENTICACIÓN
+function setAdminVisible(visible) {
+  $("adminPanel").hidden = !visible;
+  $("loginForm").style.display = visible ? "none" : "block";
+  $("logoutButton").hidden = !visible;
+}
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  $("loginButton").disabled = true;
+  $("loginMessage").textContent = "Verificando acceso...";
+
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      $("adminEmail").value.trim(),
+      $("adminPassword").value
+    );
+    $("loginForm").reset();
+    $("loginMessage").textContent = "Acceso correcto.";
+  } catch (error) {
+    console.error(error);
+    $("loginMessage").textContent =
+      "No se pudo iniciar sesión. Revisa los datos.";
+  } finally {
+    $("loginButton").disabled = false;
+  }
+});
+
+$("logoutButton").addEventListener("click", async () => {
+  try {
+    await stopScanner();
+    await signOut(auth);
+    $("loginMessage").textContent = "Sesión cerrada.";
+  } catch (error) {
+    console.error(error);
+    $("loginMessage").textContent = "No se pudo cerrar la sesión.";
+  }
+});
+
+// IDENTIFICADOR QR ALEATORIO
+function createToken() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+
+  const bytes = new Uint8Array(24);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2,"0")).join("");
+}
+
+// CARGAR EMPLEADOS Y DAR QR A REGISTROS ANTIGUOS
+async function loadEmployees() {
+  if (!currentUser) return;
+
+  const snapshot = await getDocs(collection(db, "employees"));
+  const loaded = [];
+
+  for (const item of snapshot.docs) {
+    const data = item.data();
+
+    if (!data.qrToken) {
+      data.qrToken = createToken();
+      await updateDoc(doc(db, "employees", item.id), {
+        qrToken: data.qrToken
+      });
+    }
+
+    loaded.push({ id: item.id, ...data });
+  }
+
+  employees = loaded;
+  renderEmployees();
+}
+
+function renderEmployees() {
+  $("employeeList").replaceChildren();
 
   employees.forEach(emp => {
     const row = document.createElement("tr");
@@ -353,98 +757,38 @@ function render() {
     statusCell.appendChild(badge);
     row.appendChild(statusCell);
 
-    employeeList.appendChild(row);
+    $("employeeList").appendChild(row);
   });
 
-  total.textContent = employees.length;
-  active.textContent = employees.filter(
+  $("total").textContent = employees.length;
+  $("active").textContent = employees.filter(
     emp => emp.status !== "Inactivo"
   ).length;
 
-  empty.style.display = employees.length ? "none" : "block";
+  $("empty").style.display = employees.length ? "none" : "block";
 }
-
-// CARGAR EMPLEADOS DE FIRESTORE
-async function loadEmployees() {
-  if (!currentUser) return;
-
-  const snapshot = await getDocs(collection(db, "employees"));
-
-  employees = snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
-
-  render();
-}
-
-// INICIAR SESIÓN
-loginForm.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  loginButton.disabled = true;
-  loginMessage.textContent = "Verificando acceso...";
-
-  const email = document.getElementById("adminEmail").value.trim();
-  const password = document.getElementById("adminPassword").value;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    loginMessage.textContent = "Acceso correcto.";
-    loginForm.reset();
-  } catch (error) {
-    console.error("Error de autenticación:", error);
-    loginMessage.textContent =
-      "No se pudo iniciar sesión. Revisa tus datos o la configuración de Firebase.";
-  } finally {
-    loginButton.disabled = false;
-  }
-});
-
-// CERRAR SESIÓN
-logoutButton.addEventListener("click", async () => {
-  logoutButton.disabled = true;
-
-  try {
-    await signOut(auth);
-    loginMessage.textContent = "Sesión cerrada.";
-  } catch (error) {
-    console.error("Error al cerrar sesión:", error);
-    loginMessage.textContent = "No se pudo cerrar la sesión.";
-  } finally {
-    logoutButton.disabled = false;
-  }
-});
 
 // REGISTRAR EMPLEADO
-employeeForm.addEventListener("submit", async event => {
+$("employeeForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  if (!currentUser) {
-    employeeMessage.textContent = "Inicia sesión primero.";
-    return;
-  }
+  if (!currentUser) return;
 
-  const name = document.getElementById("name").value.trim();
-  const position = document.getElementById("position").value.trim();
-  const department = document.getElementById("department").value.trim();
-  const code = document.getElementById("code").value.trim();
-
-  if (!name || !position || !department || !code) {
-    employeeMessage.textContent = "Completa todos los campos.";
-    return;
-  }
+  const name = $("name").value.trim();
+  const position = $("position").value.trim();
+  const department = $("department").value.trim();
+  const code = $("code").value.trim();
 
   if (employees.some(emp =>
     (emp.code || "").toLowerCase() === code.toLowerCase()
   )) {
-    employeeMessage.textContent =
-      "Ese código de empleado ya está registrado.";
+    $("employeeMessage").textContent =
+      "Ese código ya está registrado.";
     return;
   }
 
-  registerButton.disabled = true;
-  employeeMessage.textContent = "Guardando empleado...";
+  $("registerButton").disabled = true;
+  $("employeeMessage").textContent = "Guardando empleado...";
 
   try {
     await addDoc(collection(db, "employees"), {
@@ -453,44 +797,308 @@ employeeForm.addEventListener("submit", async event => {
       department,
       code,
       status: "Activo",
+      qrToken: createToken(),
       createdAt: serverTimestamp()
     });
 
-    employeeForm.reset();
+    $("employeeForm").reset();
     await loadEmployees();
-    employeeMessage.textContent = "Empleado registrado correctamente.";
+    $("employeeMessage").textContent =
+      "Empleado registrado correctamente.";
   } catch (error) {
-    console.error("Error al guardar:", error);
-    employeeMessage.textContent =
-      "No se pudo guardar. Comprueba las reglas de Firestore.";
+    console.error(error);
+    $("employeeMessage").textContent =
+      "No se pudo guardar el empleado. Revisa Firestore.";
   } finally {
-    registerButton.disabled = false;
+    $("registerButton").disabled = false;
   }
 });
 
-// ESTADO DE AUTENTICACIÓN
+// TARJETAS QR
+function renderCards() {
+  const grid = $("cardsGrid");
+  grid.replaceChildren();
+
+  if (!employees.length) {
+    $("cardsMessage").textContent = "No hay empleados registrados.";
+    return;
+  }
+
+  $("cardsMessage").textContent = "";
+
+  employees.forEach(emp => {
+    const card = document.createElement("div");
+    card.className = "employee-card";
+
+    const head = document.createElement("div");
+    head.className = "employee-card-header";
+    const brand = document.createElement("div");
+    brand.innerHTML = "People<span>Desk</span>";
+    head.appendChild(brand);
+
+    const body = document.createElement("div");
+    body.className = "employee-card-body";
+
+    const name = document.createElement("h3");
+    name.textContent = emp.name || "";
+
+    const position = document.createElement("p");
+    position.textContent = emp.position || "";
+
+    const department = document.createElement("p");
+    department.textContent = emp.department || "";
+
+    const qr = document.createElement("div");
+    qr.className = "qr-image";
+
+    const code = document.createElement("div");
+    code.className = "employee-code";
+    code.textContent = emp.code || "";
+
+    body.append(name, position, department, qr);
+    card.append(head, body, code);
+    grid.appendChild(card);
+
+    if (window.QRCode && emp.qrToken) {
+      new window.QRCode(qr, {
+        text: emp.qrToken,
+        width: 128,
+        height: 128,
+        correctLevel: window.QRCode.CorrectLevel.M
+      });
+    } else {
+      qr.textContent = "No se pudo generar el QR.";
+    }
+  });
+}
+
+$("printCards").addEventListener("click", () => window.print());
+
+// ASISTENCIA DE HOY
+async function loadAttendance() {
+  if (!currentUser) return;
+
+  try {
+    const today = getDateKey();
+    const snapshot = await getDocs(collection(db, "attendance"));
+
+    attendance = snapshot.docs
+      .map(item => ({ id: item.id, ...item.data() }))
+      .filter(item => item.date === today);
+
+    renderAttendance();
+  } catch (error) {
+    console.error(error);
+    $("scannerMessage").textContent =
+      "No se pudo cargar la asistencia.";
+  }
+}
+
+function renderAttendance() {
+  const tbody = $("attendanceList");
+  tbody.replaceChildren();
+
+  attendance.forEach(item => {
+    const row = document.createElement("tr");
+
+    [item.time, item.code, item.name, item.position, item.punctuality]
+      .forEach((value, index) => {
+        const cell = document.createElement("td");
+        cell.textContent = value || "";
+
+        if (index === 4) {
+          const badge = document.createElement("span");
+          badge.className = "badge";
+
+          if (value === "Tardío") {
+            badge.style.background = "#fee2e2";
+            badge.style.color = "#991b1b";
+          } else if (value === "Margen final") {
+            badge.style.background = "#fef3c7";
+            badge.style.color = "#92400e";
+          }
+
+          badge.textContent = value || "";
+          cell.replaceChildren(badge);
+        }
+
+        row.appendChild(cell);
+      });
+
+    tbody.appendChild(row);
+  });
+
+  $("attendanceEmpty").style.display =
+    attendance.length ? "none" : "block";
+}
+
+// REGISTRAR ASISTENCIA SIN DUPLICADOS
+async function registerAttendance(token) {
+  const employee = employees.find(emp => emp.qrToken === token);
+
+  if (!employee) {
+    $("scanResult").hidden = false;
+    $("scanResult").textContent =
+      "QR no reconocido. Verifica que la tarjeta pertenezca a un empleado registrado.";
+    return;
+  }
+
+  if (employee.status === "Inactivo") {
+    $("scanResult").hidden = false;
+    $("scanResult").textContent =
+      "Este empleado está inactivo. No se registró la asistencia.";
+    return;
+  }
+
+  const parts = getClockParts();
+  const date = getDateKey();
+  const time = getTimeLabel(parts);
+  const punctuality = getPunctuality(parts);
+
+  // Un documento determinista por empleado y fecha
+  const attendanceId = `${employee.id}_${date}`;
+  const attendanceRef = doc(db, "attendance", attendanceId);
+
+  try {
+    const created = await runTransaction(db, async transaction => {
+      const existing = await transaction.get(attendanceRef);
+
+      if (existing.exists()) return false;
+
+      transaction.set(attendanceRef, {
+        employeeId: employee.id,
+        code: employee.code,
+        name: employee.name,
+        position: employee.position,
+        department: employee.department,
+        date,
+        time,
+        punctuality: punctuality.label,
+        createdAt: serverTimestamp()
+      });
+
+      return true;
+    });
+
+    $("scanResult").hidden = false;
+
+    if (created) {
+      $("scanResult").textContent =
+        `Asistencia registrada: ${employee.name} · ${time} · ${punctuality.label}`;
+    } else {
+      $("scanResult").textContent =
+        `${employee.name} ya tiene una entrada registrada hoy. Se conservó el primer registro.`;
+    }
+
+    await loadAttendance();
+  } catch (error) {
+    console.error("Error al registrar asistencia:", error);
+    $("scanResult").hidden = false;
+    $("scanResult").textContent =
+      "No se pudo guardar la asistencia. Revisa las reglas de Firestore.";
+  }
+}
+
+// CÁMARA Y LECTOR QR
+async function stopScanner() {
+  $("stopScanner").hidden = true;
+
+  if (scanner) {
+    try {
+      await scanner.stop();
+      await scanner.clear();
+    } catch (error) {
+      console.warn("La cámara ya estaba detenida.", error);
+    }
+    scanner = null;
+  }
+
+  scanLocked = false;
+  $("scannerMessage").textContent = "Cámara detenida.";
+}
+
+$("startScanner").addEventListener("click", async () => {
+  if (!currentUser) return;
+
+  if (!window.Html5Qrcode) {
+    $("scannerMessage").textContent =
+      "No se pudo cargar el lector QR. Recarga la página.";
+    return;
+  }
+
+  $("startScanner").disabled = true;
+  $("scannerMessage").textContent = "Solicitando acceso a la cámara...";
+  $("scanResult").hidden = true;
+
+  try {
+    scanner = new window.Html5Qrcode("reader");
+    scanLocked = false;
+
+    await scanner.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1
+      },
+      async decodedText => {
+        if (scanLocked) return;
+        scanLocked = true;
+
+        const token = decodedText.trim();
+        $("scannerMessage").textContent = "QR leído. Procesando...";
+        await stopScanner();
+        await registerAttendance(token);
+      },
+      () => {}
+    );
+
+    $("scannerMessage").textContent =
+      "Cámara activa. Enfoca una tarjeta QR.";
+    $("stopScanner").hidden = false;
+  } catch (error) {
+    console.error("Error de cámara:", error);
+    $("scannerMessage").textContent =
+      "No se pudo iniciar la cámara. Comprueba los permisos del navegador.";
+    if (scanner) {
+      try { await scanner.clear(); } catch {}
+      scanner = null;
+    }
+  } finally {
+    $("startScanner").disabled = false;
+  }
+});
+
+$("stopScanner").addEventListener("click", stopScanner);
+
+// CAMBIO DE SESIÓN
 onAuthStateChanged(auth, async user => {
   currentUser = user;
 
-  if (user) {
-    setAdminVisible(true);
-    loginMessage.textContent = "Sesión iniciada.";
-
-    try {
-      await loadEmployees();
-    } catch (error) {
-      console.error("Error al cargar empleados:", error);
-      employeeMessage.textContent =
-        "No se pudieron cargar los empleados. Revisa las reglas de Firestore.";
-    }
-  } else {
+  if (!user) {
+    await stopScanner();
     employees = [];
-    render();
+    attendance = [];
+    renderEmployees();
+    renderAttendance();
     setAdminVisible(false);
-    loginMessage.textContent = "Inicia sesión para acceder al panel.";
+    $("loginMessage").textContent =
+      "Inicia sesión para acceder al panel.";
+    return;
+  }
+
+  setAdminVisible(true);
+  $("loginMessage").textContent = "Sesión iniciada.";
+
+  try {
+    await loadEmployees();
+    showPage("employeesPage");
+  } catch (error) {
+    console.error("Error cargando empleados:", error);
+    $("employeeMessage").textContent =
+      "No se pudieron cargar los empleados. Revisa las reglas de Firestore.";
   }
 });
 </script>
-
 </body>
 </html>
