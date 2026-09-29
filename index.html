@@ -1,1 +1,193 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleDesk | Recursos Humanos</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #172033;
+}
+header {
+  background: #101c35;
+  color: white;
+  padding: 22px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-size: 23px; font-weight: bold; }
+.logo span { color: #60a5fa; }
+header small { color: #cbd5e1; }
+main { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+h1 { margin-bottom: 5px; }
+.subtitle { color: #64748b; margin-top: 0; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 16px;
+  margin: 25px 0;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 13px;
+  box-shadow: 0 3px 15px #0f172a0c;
+}
+.stat-label { color: #64748b; font-size: 14px; }
+.stat-number { font-size: 30px; font-weight: bold; margin-top: 10px; }
+.section-title { font-size: 19px; margin: 0 0 18px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+  gap: 14px;
+}
+label { display: block; font-size: 13px; margin-bottom: 7px; color: #475569; }
+input {
+  width: 100%; padding: 12px;
+  border: 1px solid #cbd5e1; border-radius: 8px;
+  font-size: 14px; background: white;
+}
+button {
+  border: 0; border-radius: 8px; padding: 12px 18px;
+  background: #2563eb; color: white; font-weight: bold;
+  cursor: pointer; margin-top: 15px;
+}
+button:hover { background: #1d4ed8; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 550px; }
+th, td { text-align: left; padding: 13px 10px; border-bottom: 1px solid #e2e8f0; }
+th { color: #64748b; font-size: 12px; }
+td { font-size: 14px; }
+.badge {
+  background: #dcfce7; color: #166534;
+  padding: 5px 9px; border-radius: 20px; font-size: 12px;
+}
+footer { text-align: center; color: #94a3b8; padding: 30px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">People<span>Desk</span></div>
+  <small>Recursos Humanos</small>
+</header>
+
+<main>
+  <h1>Panel de control</h1>
+  <p class="subtitle">Bienvenido al sistema de gestión de personal.</p>
+
+  <div class="stats">
+    <div class="card">
+      <div class="stat-label">Empleados registrados</div>
+      <div class="stat-number" id="total">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">Personal activo</div>
+      <div class="stat-number" id="active">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">Sistema</div>
+      <div class="stat-number" style="font-size:20px;color:#16a34a">En línea</div>
+    </div>
+  </div>
+
+  <section class="card">
+    <h2 class="section-title">Registrar empleado</h2>
+    <form id="employeeForm">
+      <div class="form-grid">
+        <div>
+          <label for="name">Nombre completo</label>
+          <input id="name" required placeholder="Ej. Carlos Martínez">
+        </div>
+        <div>
+          <label for="position">Puesto</label>
+          <input id="position" required placeholder="Ej. Auxiliar contable">
+        </div>
+        <div>
+          <label for="department">Departamento</label>
+          <input id="department" required placeholder="Ej. Contabilidad">
+        </div>
+        <div>
+          <label for="code">Código de empleado</label>
+          <input id="code" required placeholder="Ej. EMP-001">
+        </div>
+      </div>
+      <button type="submit">+ Registrar empleado</button>
+    </form>
+  </section>
+
+  <section class="card" style="margin-top:22px">
+    <h2 class="section-title">Directorio de empleados</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>CÓDIGO</th><th>NOMBRE</th><th>PUESTO</th>
+            <th>DEPARTAMENTO</th><th>ESTADO</th>
+          </tr>
+        </thead>
+        <tbody id="employeeList"></tbody>
+      </table>
+    </div>
+    <p id="empty" style="color:#94a3b8;text-align:center">
+      Todavía no hay empleados registrados.
+    </p>
+  </section>
+</main>
+
+<footer>PeopleDesk · Prototipo de Recursos Humanos</footer>
+
+<script>
+const form = document.getElementById("employeeForm");
+const list = document.getElementById("employeeList");
+const empty = document.getElementById("empty");
+let employees = JSON.parse(localStorage.getItem("peopledeskEmployees") || "[]");
+
+function render() {
+  list.innerHTML = "";
+  employees.forEach(emp => {
+    const row = document.createElement("tr");
+    [emp.code, emp.name, emp.position, emp.department].forEach(value => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+    const status = document.createElement("td");
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = "Activo";
+    status.appendChild(badge);
+    row.appendChild(status);
+    list.appendChild(row);
+  });
+  document.getElementById("total").textContent = employees.length;
+  document.getElementById("active").textContent = employees.length;
+  empty.style.display = employees.length ? "none" : "block";
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  const code = document.getElementById("code").value.trim();
+  if (employees.some(emp => emp.code.toLowerCase() === code.toLowerCase())) {
+    alert("Ese código de empleado ya está registrado.");
+    return;
+  }
+  employees.push({
+    name: document.getElementById("name").value.trim(),
+    position: document.getElementById("position").value.trim(),
+    department: document.getElementById("department").value.trim(),
+    code: code
+  });
+  localStorage.setItem("peopledeskEmployees", JSON.stringify(employees));
+  form.reset();
+  render();
+});
+render();
+</script>
+</body>
+</html>
