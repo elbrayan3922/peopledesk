@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PeopleDesk | Recursos Humanos</title>
+<title>Asistencia INVAS 2A | Recursos Humanos</title>
 <style>
 * { box-sizing: border-box; }
 body {
@@ -80,6 +80,30 @@ footer { text-align: center; color: #94a3b8; padding: 30px; font-size: 12px; }
 <main>
   <h1>Panel de control</h1>
   <p class="subtitle">Bienvenido al sistema de gestión de personal.</p>
+  
+<section class="card" style="margin:20px 0">
+  <h2 class="section-title">Acceso de administrador</h2>
+  <form id="loginForm">
+    <div class="form-grid">
+      <div>
+        <label for="adminEmail">Correo electrónico</label>
+        <input id="adminEmail" type="email" required
+               placeholder="admin@ejemplo.com">
+      </div>
+      <div>
+        <label for="adminPassword">Contraseña</label>
+        <input id="adminPassword" type="password" required
+               placeholder="Tu contraseña">
+      </div>
+    </div>
+    <button type="submit">Iniciar sesión</button>
+    <p id="loginMessage" style="color:#64748b"></p>
+  </form>
+  <button id="logoutButton" type="button"
+          style="display:none;background:#64748b">
+    Cerrar sesión
+  </button>
+</section>
 
   <div class="stats">
     <div class="card">
