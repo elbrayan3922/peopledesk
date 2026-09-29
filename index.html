@@ -4,15 +4,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asistencia INVAS 2A | Recursos Humanos</title>
+<title>PeopleDesk | Recursos Humanos</title>
+
 <style>
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f1f5f9;
   color: #172033;
 }
+
 header {
   background: #101c35;
   color: white;
@@ -21,57 +24,123 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 .logo { font-size: 23px; font-weight: bold; }
 .logo span { color: #60a5fa; }
 header small { color: #cbd5e1; }
-main { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+
+main {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
 h1 { margin-bottom: 5px; }
 .subtitle { color: #64748b; margin-top: 0; }
+
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
   gap: 16px;
   margin: 25px 0;
 }
+
 .card {
   background: white;
   padding: 20px;
   border-radius: 13px;
   box-shadow: 0 3px 15px #0f172a0c;
 }
-.stat-label { color: #64748b; font-size: 14px; }
-.stat-number { font-size: 30px; font-weight: bold; margin-top: 10px; }
-.section-title { font-size: 19px; margin: 0 0 18px; }
+
+.section-title {
+  font-size: 19px;
+  margin: 0 0 18px;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
   gap: 14px;
 }
-label { display: block; font-size: 13px; margin-bottom: 7px; color: #475569; }
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 7px;
+  color: #475569;
+}
+
 input {
-  width: 100%; padding: 12px;
-  border: 1px solid #cbd5e1; border-radius: 8px;
-  font-size: 14px; background: white;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
 }
+
 button {
-  border: 0; border-radius: 8px; padding: 12px 18px;
-  background: #2563eb; color: white; font-weight: bold;
-  cursor: pointer; margin-top: 15px;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 18px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
 }
+
 button:hover { background: #1d4ed8; }
+
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
 .table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; min-width: 550px; }
-th, td { text-align: left; padding: 13px 10px; border-bottom: 1px solid #e2e8f0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 550px;
+}
+
+th, td {
+  text-align: left;
+  padding: 13px 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
 th { color: #64748b; font-size: 12px; }
 td { font-size: 14px; }
+
 .badge {
-  background: #dcfce7; color: #166534;
-  padding: 5px 9px; border-radius: 20px; font-size: 12px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
 }
-footer { text-align: center; color: #94a3b8; padding: 30px; font-size: 12px; }
+
+footer {
+  text-align: center;
+  color: #94a3b8;
+  padding: 30px;
+  font-size: 12px;
+}
+
+.message {
+  color: #64748b;
+  font-size: 14px;
+  min-height: 18px;
+}
+
+[hidden] { display: none !important; }
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="logo">People<span>Desk</span></div>
   <small>Recursos Humanos</small>
@@ -80,138 +149,348 @@ footer { text-align: center; color: #94a3b8; padding: 30px; font-size: 12px; }
 <main>
   <h1>Panel de control</h1>
   <p class="subtitle">Bienvenido al sistema de gestión de personal.</p>
-  
-<section class="card" style="margin:20px 0">
-  <h2 class="section-title">Acceso de administrador</h2>
-  <form id="loginForm">
-    <div class="form-grid">
-      <div>
-        <label for="adminEmail">Correo electrónico</label>
-        <input id="adminEmail" type="email" required
-               placeholder="admin@ejemplo.com">
-      </div>
-      <div>
-        <label for="adminPassword">Contraseña</label>
-        <input id="adminPassword" type="password" required
-               placeholder="Tu contraseña">
-      </div>
-    </div>
-    <button type="submit">Iniciar sesión</button>
-    <p id="loginMessage" style="color:#64748b"></p>
-  </form>
-  <button id="logoutButton" type="button"
-          style="display:none;background:#64748b">
-    Cerrar sesión
-  </button>
-</section>
 
-  <div class="stats">
-    <div class="card">
-      <div class="stat-label">Empleados registrados</div>
-      <div class="stat-number" id="total">0</div>
-    </div>
-    <div class="card">
-      <div class="stat-label">Personal activo</div>
-      <div class="stat-number" id="active">0</div>
-    </div>
-    <div class="card">
-      <div class="stat-label">Sistema</div>
-      <div class="stat-number" style="font-size:20px;color:#16a34a">En línea</div>
-    </div>
-  </div>
+  <!-- ACCESO ADMINISTRADOR -->
+  <section class="card" style="margin:20px 0">
+    <h2 class="section-title">Acceso de administrador</h2>
 
-  <section class="card">
-    <h2 class="section-title">Registrar empleado</h2>
-    <form id="employeeForm">
+    <form id="loginForm">
       <div class="form-grid">
         <div>
-          <label for="name">Nombre completo</label>
-          <input id="name" required placeholder="Ej. Carlos Martínez">
+          <label for="adminEmail">Correo electrónico</label>
+          <input id="adminEmail" type="email"
+                 required placeholder="admin@ejemplo.com"
+                 autocomplete="username">
         </div>
+
         <div>
-          <label for="position">Puesto</label>
-          <input id="position" required placeholder="Ej. Auxiliar contable">
-        </div>
-        <div>
-          <label for="department">Departamento</label>
-          <input id="department" required placeholder="Ej. Contabilidad">
-        </div>
-        <div>
-          <label for="code">Código de empleado</label>
-          <input id="code" required placeholder="Ej. EMP-001">
+          <label for="adminPassword">Contraseña</label>
+          <input id="adminPassword" type="password"
+                 required placeholder="Tu contraseña"
+                 autocomplete="current-password">
         </div>
       </div>
-      <button type="submit">+ Registrar empleado</button>
+
+      <button id="loginButton" type="submit">
+        Iniciar sesión
+      </button>
+      <p id="loginMessage" class="message" aria-live="polite"></p>
     </form>
+
+    <button id="logoutButton" type="button"
+            style="display:none;background:#64748b">
+      Cerrar sesión
+    </button>
   </section>
 
-  <section class="card" style="margin-top:22px">
-    <h2 class="section-title">Directorio de empleados</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>CÓDIGO</th><th>NOMBRE</th><th>PUESTO</th>
-            <th>DEPARTAMENTO</th><th>ESTADO</th>
-          </tr>
-        </thead>
-        <tbody id="employeeList"></tbody>
-      </table>
+  <!-- PANEL DE ADMINISTRADOR -->
+  <div id="adminPanel" hidden>
+
+    <div class="stats">
+      <div class="card">
+        <div class="stat-label">Empleados registrados</div>
+        <div class="stat-number" id="total">0</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Personal activo</div>
+        <div class="stat-number" id="active">0</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Sistema</div>
+        <div class="stat-number"
+             style="font-size:20px;color:#16a34a">
+          En línea
+        </div>
+      </div>
     </div>
-    <p id="empty" style="color:#94a3b8;text-align:center">
-      Todavía no hay empleados registrados.
-    </p>
-  </section>
+
+    <!-- REGISTRO DE EMPLEADOS -->
+    <section class="card">
+      <h2 class="section-title">Registrar empleado</h2>
+
+      <form id="employeeForm">
+        <div class="form-grid">
+          <div>
+            <label for="name">Nombre completo</label>
+            <input id="name" required
+                   placeholder="Ej. Carlos Martínez">
+          </div>
+
+          <div>
+            <label for="position">Puesto</label>
+            <input id="position" required
+                   placeholder="Ej. Auxiliar contable">
+          </div>
+
+          <div>
+            <label for="department">Departamento</label>
+            <input id="department" required
+                   placeholder="Ej. Contabilidad">
+          </div>
+
+          <div>
+            <label for="code">Código de empleado</label>
+            <input id="code" required
+                   placeholder="Ej. EMP-001">
+          </div>
+        </div>
+
+        <button id="registerButton" type="submit">
+          + Registrar empleado
+        </button>
+        <p id="employeeMessage" class="message"
+           aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- DIRECTORIO -->
+    <section class="card" style="margin-top:22px">
+      <h2 class="section-title">Directorio de empleados</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>CÓDIGO</th>
+              <th>NOMBRE</th>
+              <th>PUESTO</th>
+              <th>DEPARTAMENTO</th>
+              <th>ESTADO</th>
+            </tr>
+          </thead>
+          <tbody id="employeeList"></tbody>
+        </table>
+      </div>
+
+      <p id="empty"
+         style="color:#94a3b8;text-align:center">
+        Todavía no hay empleados registrados.
+      </p>
+    </section>
+  </div>
 </main>
 
 <footer>PeopleDesk · Prototipo de Recursos Humanos</footer>
 
-<script>
-const form = document.getElementById("employeeForm");
-const list = document.getElementById("employeeList");
-const empty = document.getElementById("empty");
-let employees = JSON.parse(localStorage.getItem("peopledeskEmployees") || "[]");
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+// CONFIGURACIÓN FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyDv0uW_noBsgrlciNbe5R2wt51JrT2fijo",
+  authDomain: "peopledesk-52d92.firebaseapp.com",
+  projectId: "peopledesk-52d92",
+  storageBucket: "peopledesk-52d92.firebasestorage.app",
+  messagingSenderId: "933279518535",
+  appId: "1:933279518535:web:81b58d9b4dacc815d00662"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ELEMENTOS
+const loginForm = document.getElementById("loginForm");
+const loginButton = document.getElementById("loginButton");
+const loginMessage = document.getElementById("loginMessage");
+const logoutButton = document.getElementById("logoutButton");
+const adminPanel = document.getElementById("adminPanel");
+
+const employeeForm = document.getElementById("employeeForm");
+const registerButton = document.getElementById("registerButton");
+const employeeMessage = document.getElementById("employeeMessage");
+const employeeList = document.getElementById("employeeList");
+const empty = document.getElementById("empty");
+
+const total = document.getElementById("total");
+const active = document.getElementById("active");
+
+let employees = [];
+let currentUser = null;
+
+// MOSTRAR U OCULTAR EL PANEL
+function setAdminVisible(visible) {
+  adminPanel.hidden = !visible;
+  loginForm.style.display = visible ? "none" : "block";
+  logoutButton.style.display = visible ? "inline-block" : "none";
+}
+
+// DIBUJAR DIRECTORIO
 function render() {
-  list.innerHTML = "";
+  employeeList.replaceChildren();
+
   employees.forEach(emp => {
     const row = document.createElement("tr");
+
     [emp.code, emp.name, emp.position, emp.department].forEach(value => {
       const cell = document.createElement("td");
-      cell.textContent = value;
+      cell.textContent = value || "";
       row.appendChild(cell);
     });
-    const status = document.createElement("td");
+
+    const statusCell = document.createElement("td");
     const badge = document.createElement("span");
     badge.className = "badge";
-    badge.textContent = "Activo";
-    status.appendChild(badge);
-    row.appendChild(status);
-    list.appendChild(row);
+    badge.textContent = emp.status || "Activo";
+    statusCell.appendChild(badge);
+    row.appendChild(statusCell);
+
+    employeeList.appendChild(row);
   });
-  document.getElementById("total").textContent = employees.length;
-  document.getElementById("active").textContent = employees.length;
+
+  total.textContent = employees.length;
+  active.textContent = employees.filter(
+    emp => emp.status !== "Inactivo"
+  ).length;
+
   empty.style.display = employees.length ? "none" : "block";
 }
 
-form.addEventListener("submit", function(event) {
+// CARGAR EMPLEADOS DE FIRESTORE
+async function loadEmployees() {
+  if (!currentUser) return;
+
+  const snapshot = await getDocs(collection(db, "employees"));
+
+  employees = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+
+  render();
+}
+
+// INICIAR SESIÓN
+loginForm.addEventListener("submit", async event => {
   event.preventDefault();
-  const code = document.getElementById("code").value.trim();
-  if (employees.some(emp => emp.code.toLowerCase() === code.toLowerCase())) {
-    alert("Ese código de empleado ya está registrado.");
+
+  loginButton.disabled = true;
+  loginMessage.textContent = "Verificando acceso...";
+
+  const email = document.getElementById("adminEmail").value.trim();
+  const password = document.getElementById("adminPassword").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    loginMessage.textContent = "Acceso correcto.";
+    loginForm.reset();
+  } catch (error) {
+    console.error("Error de autenticación:", error);
+    loginMessage.textContent =
+      "No se pudo iniciar sesión. Revisa tus datos o la configuración de Firebase.";
+  } finally {
+    loginButton.disabled = false;
+  }
+});
+
+// CERRAR SESIÓN
+logoutButton.addEventListener("click", async () => {
+  logoutButton.disabled = true;
+
+  try {
+    await signOut(auth);
+    loginMessage.textContent = "Sesión cerrada.";
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+    loginMessage.textContent = "No se pudo cerrar la sesión.";
+  } finally {
+    logoutButton.disabled = false;
+  }
+});
+
+// REGISTRAR EMPLEADO
+employeeForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser) {
+    employeeMessage.textContent = "Inicia sesión primero.";
     return;
   }
-  employees.push({
-    name: document.getElementById("name").value.trim(),
-    position: document.getElementById("position").value.trim(),
-    department: document.getElementById("department").value.trim(),
-    code: code
-  });
-  localStorage.setItem("peopledeskEmployees", JSON.stringify(employees));
-  form.reset();
-  render();
+
+  const name = document.getElementById("name").value.trim();
+  const position = document.getElementById("position").value.trim();
+  const department = document.getElementById("department").value.trim();
+  const code = document.getElementById("code").value.trim();
+
+  if (!name || !position || !department || !code) {
+    employeeMessage.textContent = "Completa todos los campos.";
+    return;
+  }
+
+  if (employees.some(emp =>
+    (emp.code || "").toLowerCase() === code.toLowerCase()
+  )) {
+    employeeMessage.textContent =
+      "Ese código de empleado ya está registrado.";
+    return;
+  }
+
+  registerButton.disabled = true;
+  employeeMessage.textContent = "Guardando empleado...";
+
+  try {
+    await addDoc(collection(db, "employees"), {
+      name,
+      position,
+      department,
+      code,
+      status: "Activo",
+      createdAt: serverTimestamp()
+    });
+
+    employeeForm.reset();
+    await loadEmployees();
+    employeeMessage.textContent = "Empleado registrado correctamente.";
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    employeeMessage.textContent =
+      "No se pudo guardar. Comprueba las reglas de Firestore.";
+  } finally {
+    registerButton.disabled = false;
+  }
 });
-render();
+
+// ESTADO DE AUTENTICACIÓN
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+
+  if (user) {
+    setAdminVisible(true);
+    loginMessage.textContent = "Sesión iniciada.";
+
+    try {
+      await loadEmployees();
+    } catch (error) {
+      console.error("Error al cargar empleados:", error);
+      employeeMessage.textContent =
+        "No se pudieron cargar los empleados. Revisa las reglas de Firestore.";
+    }
+  } else {
+    employees = [];
+    render();
+    setAdminVisible(false);
+    loginMessage.textContent = "Inicia sesión para acceder al panel.";
+  }
+});
 </script>
+
 </body>
 </html>
