@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compu Invas 2A | Recursos Humanos</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#101c35;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:25px;font-weight:bold}.logo span,.employee-card-header span{color:#60a5fa}header small{color:#cbd5e1}
+main{max-width:1150px;margin:30px auto;padding:0 20px}h1{margin-bottom:5px}.subtitle{color:#64748b;margin-top:0}
+.card{background:white;padding:20px;border-radius:13px;box-shadow:0 3px 15px #0f172a0c;margin-bottom:20px}
+.section-title{font-size:19px;margin:0 0 18px}.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+label{display:block;font-size:13px;margin-bottom:7px;color:#475569}input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:white}
+button{border:0;border-radius:8px;padding:12px 18px;background:#2563eb;color:white;font-weight:bold;cursor:pointer;margin-top:12px}button:hover{background:#1d4ed8}button:disabled{opacity:.6;cursor:not-allowed}
+.secondary{background:#64748b}.secondary:hover{background:#475569}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:25px 0}
+.stat-label{color:#64748b;font-size:14px}.stat-number{font-size:30px;font-weight:bold;margin-top:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0;background:white;border-radius:12px;padding:8px;box-shadow:0 3px 15px #0f172a0c}
+.tab{background:transparent;color:#475569;margin:0;flex:1;min-width:110px}.tab:hover{background:#eff6ff;color:#1d4ed8}.tab.active{background:#2563eb;color:white}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:550px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid #e2e8f0}th{color:#64748b;font-size:12px}td{font-size:14px}
+.badge{display:inline-block;background:#dcfce7;color:#166534;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}.message{color:#64748b;font-size:14px;min-height:18px}
+.time-card{background:#101c35;color:white;border-radius:18px;padding:28px 18px;text-align:center;margin-bottom:20px}.clock{font-size:clamp(35px,8vw,70px);font-weight:bold;letter-spacing:2px;margin:12px 0;font-variant-numeric:tabular-nums}.date-text{color:#cbd5e1}
+.time-status{display:inline-block;padding:10px 18px;border-radius:30px;font-weight:bold;margin-top:16px}.green{background:#dcfce7;color:#166534}.orange{background:#fef3c7;color:#92400e}.red{background:#fee2e2;color:#991b1b}
+.deadline{border:1px solid #2563eb;background:#172b49;border-radius:12px;padding:14px;margin-top:20px;color:white}.deadline strong{display:block;color:#60a5fa;font-size:26px;margin-top:5px}
+.scanner-box{max-width:600px;margin:0 auto 20px;text-align:center}#reader{width:100%;max-width:420px;min-height:220px;margin:18px auto;overflow:hidden;border-radius:12px;background:#101827;border:2px solid #3977cb}#reader video{width:100%!important;max-width:100%;min-height:220px;max-height:360px;object-fit:cover;border-radius:10px}#reader img{max-width:100%}.attendance-result{border-radius:12px;padding:16px;margin-top:15px;background:#eff6ff;color:#1e40af;text-align:center}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}.employee-card{--dept-color:#2563eb;border:1px solid #cbd5e1;border-radius:14px;overflow:hidden;text-align:center;background:#fff;color:#172033;max-width:300px;width:100%;margin:0 auto;box-shadow:0 5px 18px #0f172a12}
+.employee-card-header{background:var(--dept-color);color:white;padding:15px 10px 13px;border-bottom:5px solid color-mix(in srgb,var(--dept-color),#172b49 28%)}.employee-card-header .institution{font-size:23px;font-weight:800;letter-spacing:1.5px}.employee-card-header .card-kicker{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#cbd5e1;margin-bottom:5px}.employee-card-header .card-dept{font-size:11px;color:#dbeafe;margin-top:4px;text-transform:uppercase;letter-spacing:1px}.employee-card-body{padding:15px 14px 13px}.employee-card-body h3{margin:8px 0;font-size:16px;line-height:1.25;color:#172b49}.employee-card-body p{margin:5px 0;color:#475569;font-size:12px}.employee-card-body .field-label{font-size:9px;letter-spacing:1px;color:#64748b;text-transform:uppercase;margin-top:7px}.employee-card-body .position{font-weight:700;color:#334155}.employee-card-body .department{display:inline-block;background:#f1f5f9;border-left:3px solid var(--dept-color);padding:5px 9px;margin-top:6px;border-radius:4px;font-weight:600}.qr-image{display:flex;justify-content:center;align-items:center;margin:10px auto 8px;min-height:150px;width:150px;height:150px;padding:8px;background:#fff;border:1px solid #e2e8f0;border-radius:10px}.qr-image canvas{display:block!important}.qr-image img{display:none!important;max-width:100%;height:auto}.employee-card .year{font-size:11px;color:#475569;margin-top:7px}.employee-code{background:var(--dept-color);color:white;padding:9px;font-size:12px;font-weight:bold;letter-spacing:1.5px;border-top:3px solid color-mix(in srgb,var(--dept-color),#172b49 28%)}
+footer{text-align:center;color:#94a3b8;padding:30px;font-size:12px}[hidden]{display:none!important}
+@media print{
+ @page{size:auto;margin:10mm}
+ *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ header,main>h1,main>.subtitle,.tabs,#loginSection,footer,.no-print{display:none!important}
+ body{background:white}
+ main{margin:0;padding:0;max-width:none}
+ #cardsPage{display:block!important}
+ #cardsPage>.card{padding:0;box-shadow:none;margin:0}
+ #cardsGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8mm;align-items:start;justify-items:center}
+ .employee-card{break-inside:avoid;border:1px solid #555;box-shadow:none;width:65mm;max-width:65mm;border-radius:5px}
+ .employee-card-header{background:var(--dept-color)!important;color:white!important;border-bottom:4px solid color-mix(in srgb,var(--dept-color),#172b49 28%)!important}
+ .employee-card-header .card-kicker,.employee-card-header .card-dept,.employee-card-header .institution,.employee-card-header span{color:white!important}
+ .employee-card-body p,.employee-card-body h3,.employee-card-body .field-label,.employee-card .year{color:#172033!important}
+ .employee-card .department{background:#f1f5f9!important;border:1px solid #cbd5e1!important;border-left:4px solid var(--dept-color)!important;color:#334155!important}
+ .employee-code{background:var(--dept-color)!important;color:white!important;border-top:3px solid color-mix(in srgb,var(--dept-color),#172b49 28%)!important}
+ .qr-image{width:38mm;height:38mm;min-height:38mm;padding:2mm;margin:8px auto;border:1px solid #e2e8f0!important;overflow:hidden}
+ .qr-image img,.qr-image canvas{max-width:100%!important;max-height:100%!important;width:34mm!important;height:34mm!important;object-fit:contain}
+}</style>
+</head>
+<body>
+<header><div class="logo">People<span>Desk</span></div><small>Recursos Humanos</small></header>
+<main>
+<h1>Panel de control</h1><p class="subtitle">Sistema de gestión de personal y asistencia.</p>
+<section class="card" id="loginSection">
+<h2 class="section-title">Acceso de administrador</h2>
+<form id="loginForm"><div class="form-grid">
+<div><label for="adminEmail">Correo electrónico</label><input id="adminEmail" type="email" required placeholder="admin@ejemplo.com" autocomplete="username"></div>
+<div><label for="adminPassword">Contraseña</label><input id="adminPassword" type="password" required placeholder="Tu contraseña" autocomplete="current-password"></div>
+</div><button id="loginButton" type="submit">Iniciar sesión</button><p id="loginMessage" class="message" aria-live="polite"></p></form>
+<button id="logoutButton" class="secondary" type="button" hidden>Cerrar sesión</button>
+</section>
+<div id="adminPanel" hidden>
+<nav class="tabs no-print" aria-label="Secciones">
+<button class="tab active" data-page="employeesPage">Empleados</button><button class="tab" data-page="cardsPage">Tarjetas QR</button><button class="tab" data-page="attendancePage">Asistencia</button>
+</nav>
+<section id="employeesPage">
+<div class="stats"><div class="card"><div class="stat-label">Empleados registrados</div><div class="stat-number" id="total">0</div></div><div class="card"><div class="stat-label">Personal activo</div><div class="stat-number" id="active">0</div></div><div class="card"><div class="stat-label">Sistema</div><div class="stat-number" style="font-size:20px;color:#16a34a">En línea</div></div></div>
+<section class="card"><h2 class="section-title">Registrar empleado</h2><form id="employeeForm"><div class="form-grid">
+<div><label for="name">Nombre completo</label><input id="name" required placeholder="Ej. Carlos Martínez"></div>
+<div><label for="department">Departamento</label><select id="department" required><option value="">Selecciona un departamento</option><option value="Gerencia General">Gerencia General</option><option value="Recursos Humanos">Recursos Humanos</option><option value="Finanzas y Contabilidad">Finanzas y Contabilidad</option><option value="Ventas">Ventas</option><option value="Compras e Inventario">Compras e Inventario</option><option value="Caja">Caja</option></select></div>
+<div><label for="position">Puesto de trabajo</label><select id="position" required disabled><option value="">Primero selecciona un departamento</option></select></div>
+<div><label for="code">Código de empleado</label><input id="code" required placeholder="Ej. EMP-001"></div>
+</div><button id="registerButton" type="submit">+ Registrar empleado</button><p id="employeeMessage" class="message" aria-live="polite"></p></form></section>
+<section class="card"><h2 class="section-title">Directorio de empleados</h2><div class="table-wrap"><table><thead><tr><th>CÓDIGO</th><th>NOMBRE</th><th>PUESTO</th><th>DEPARTAMENTO</th><th>ESTADO</th></tr></thead><tbody id="employeeList"></tbody></table></div><p id="empty" style="color:#94a3b8;text-align:center">Todavía no hay empleados registrados.</p></section>
+</section>
+<section id="cardsPage" hidden><section class="card"><h2 class="section-title">Tarjetas identificativas</h2><p class="subtitle">Tarjetas QR individuales para el personal registrado.</p><div class="no-print"><button type="button" id="printCards">Imprimir tarjetas</button></div><p id="cardsMessage" class="message" aria-live="polite"></p><div id="cardsGrid" class="cards-grid"></div></section></section>
+<section id="attendancePage" hidden>
+<section class="time-card"><div style="color:#bfdbfe;font-weight:bold">CONTROL DE ASISTENCIA</div><div id="clock" class="clock">--:--:--</div><div id="dateText" class="date-text">Cargando fecha...</div><div id="timeStatus" class="time-status green">A tiempo</div><div class="deadline">Hora límite de entrada<strong>1:00 p. m.</strong></div></section>
+<section class="card scanner-box"><h2 class="section-title">Escáner de código QR</h2><p class="subtitle">Activa la cámara y coloca la tarjeta del empleado frente a ella. La vista en vivo aparecerá aquí.</p><div id="reader" aria-label="Vista previa de la cámara en vivo"></div><button id="startScanner" type="button">Iniciar cámara</button><button id="stopScanner" class="secondary" type="button" hidden>Detener cámara</button><p id="scannerMessage" class="message" aria-live="polite">Cámara detenida.</p><div id="scanResult" class="attendance-result" hidden></div></section>
+<section class="card"><h2 class="section-title">Asistencia de hoy</h2><div class="table-wrap"><table><thead><tr><th>HORA</th><th>CÓDIGO</th><th>NOMBRE</th><th>PUESTO</th><th>PUNTUALIDAD</th></tr></thead><tbody id="attendanceList"></tbody></table></div><p id="attendanceEmpty" style="color:#94a3b8;text-align:center">Aún no hay asistencias registradas hoy.</p></section>
+</section></div></main>
+<footer>Compu Invas 2A · Prototipo de Recursos Humanos</footer>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {getFirestore,collection,getDocs,addDoc,updateDoc,doc,runTransaction,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyDv0uW_noBsgrlciNbe5R2wt51JrT2fijo",authDomain:"peopledesk-52d92.firebaseapp.com",projectId:"peopledesk-52d92",storageBucket:"peopledesk-52d92.firebasestorage.app",messagingSenderId:"933279518535",appId:"1:933279518535:web:81b58d9b4dacc815d00662"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),$=id=>document.getElementById(id),TZ="America/El_Salvador";
+let employees=[],currentUser=null,scanner=null,attendance=[],lastScans=new Map(),scanSequence=0,resultTimeout=null;
+function getClockParts(){const parts=new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date()),r={};parts.forEach(p=>{if(p.type!=="literal")r[p.type]=Number(p.value)});return r}
+function getDateKey(){const parts=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()),r={};parts.forEach(p=>{if(p.type!=="literal")r[p.type]=p.value});return `${r.year}-${r.month}-${r.day}`}
+function getDateLabel(){return new Intl.DateTimeFormat("es-SV",{timeZone:TZ,weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date())}
+function getTimeLabel(p=getClockParts()){return `${p.hour%12||12}:${String(p.minute).padStart(2,"0")}:${String(p.second).padStart(2,"0")} ${p.hour>=12?"p. m.":"a. m."}`}
+function getPunctuality(p=getClockParts()){const m=p.hour*60+p.minute;if(m<775)return{label:"A tiempo",color:"green"};if(m<780)return{label:"Margen final",color:"orange"};return{label:"Tardío",color:"red"}}
+function updateClock(){const p=getClockParts();$("clock").textContent=getTimeLabel(p);$("dateText").textContent=getDateLabel();const s=getPunctuality(p);$("timeStatus").textContent=s.label;$("timeStatus").className=`time-status ${s.color}`}
+updateClock();setInterval(updateClock,1000);
+function showPage(id){["employeesPage","cardsPage","attendancePage"].forEach(x=>$(x).hidden=x!==id);document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.page===id));if(id==="cardsPage")renderCards();if(id==="attendancePage")loadAttendance()}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function setAdminVisible(v){$("adminPanel").hidden=!v;$("loginForm").style.display=v?"none":"block";$("logoutButton").hidden=!v}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();$("loginButton").disabled=true;$("loginMessage").textContent="Verificando acceso...";try{await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);$("loginForm").reset();$("loginMessage").textContent="Acceso correcto."}catch(err){console.error(err);$("loginMessage").textContent="No se pudo iniciar sesión. Revisa los datos."}finally{$("loginButton").disabled=false}});
+$("logoutButton").addEventListener("click",async()=>{try{await stopScanner();await signOut(auth);$("loginMessage").textContent="Sesión cerrada."}catch(e){console.error(e);$("loginMessage").textContent="No se pudo cerrar la sesión."}});
+function createToken(){if(crypto.randomUUID)return crypto.randomUUID();const b=new Uint8Array(24);crypto.getRandomValues(b);return Array.from(b,x=>x.toString(16).padStart(2,"0")).join("")}
+async function loadEmployees(){if(!currentUser)return;const snap=await getDocs(collection(db,"employees")),loaded=[];for(const item of snap.docs){const data=item.data();if(!data.qrToken){data.qrToken=createToken();await updateDoc(doc(db,"employees",item.id),{qrToken:data.qrToken})}loaded.push({id:item.id,...data})}employees=loaded;renderEmployees()}
+function renderEmployees(){$("employeeList").replaceChildren();employees.forEach(emp=>{const tr=document.createElement("tr");[emp.code,emp.name,emp.position,emp.department].forEach(v=>{const td=document.createElement("td");td.textContent=v||"";tr.appendChild(td)});const td=document.createElement("td"),badge=document.createElement("span");badge.className="badge";badge.textContent=emp.status||"Activo";td.appendChild(badge);tr.appendChild(td);$("employeeList").appendChild(tr)});$("total").textContent=employees.length;$("active").textContent=employees.filter(e=>e.status!=="Inactivo").length;$("empty").style.display=employees.length?"none":"block"}
+const departmentPositions={
+ "Gerencia General":["Gerente General"],
+ "Recursos Humanos":["Gerente de RRHH","Asistente de RRHH"],
+ "Finanzas y Contabilidad":["Gerente de Finanzas","Asistente de Finanzas","Bancos"],
+ "Ventas":["Gerente de Ventas","Dependiente de Ventas"],
+ "Compras e Inventario":["Gerente de Compras","Inventarios"],
+ "Caja":["Cajero"]
+};
+$("department").addEventListener("change",()=>{
+ const department=$("department").value,position=$("position");
+ position.replaceChildren();
+ const placeholder=document.createElement("option");
+ placeholder.value="";
+ placeholder.textContent=department?"Selecciona un puesto":"Primero selecciona un departamento";
+ position.appendChild(placeholder);
+ (departmentPositions[department]||[]).forEach(role=>{
+  const option=document.createElement("option");option.value=role;option.textContent=role;position.appendChild(option);
+ });
+ position.disabled=!department;
+});
+$("employeeForm").addEventListener("submit",async e=>{e.preventDefault();if(!currentUser)return;const name=$("name").value.trim(),position=$("position").value.trim(),department=$("department").value.trim(),code=$("code").value.trim();if(employees.some(x=>(x.code||"").toLowerCase()===code.toLowerCase())){$("employeeMessage").textContent="Ese código ya está registrado.";return}$("registerButton").disabled=true;$("employeeMessage").textContent="Guardando empleado...";try{await addDoc(collection(db,"employees"),{name,position,department,code,status:"Activo",qrToken:createToken(),createdAt:serverTimestamp()});$("employeeForm").reset();await loadEmployees();$("employeeMessage").textContent="Empleado registrado correctamente."}catch(err){console.error(err);$("employeeMessage").textContent="No se pudo guardar el empleado. Revisa Firestore."}finally{$("registerButton").disabled=false}});
+// Colores editables por departamento: cambia estos HEX según tu preferencia.
+const departmentColors={
+ "Gerencia General":"#2563eb",
+ "Recursos Humanos":"#7c3aed",
+ "Finanzas y Contabilidad":"#15803d",
+ "Ventas":"#ea580c",
+ "Compras e Inventario":"#0891b2",
+ "Caja":"#a16207"
+};
+function getDepartmentColor(department){
+ const key=String(department||"").trim().toLocaleLowerCase("es");
+ const match=Object.keys(departmentColors).find(name=>name.toLocaleLowerCase("es")===key);
+ return match?departmentColors[match]:"#475569";
+}
+function renderCards(){const grid=$("cardsGrid");grid.replaceChildren();if(!employees.length){$("cardsMessage").textContent="No hay empleados registrados.";return}$("cardsMessage").textContent="";employees.forEach(emp=>{const color=getDepartmentColor(emp.department);const card=document.createElement("div");card.className="employee-card";card.style.setProperty("--dept-color",color);const head=document.createElement("div");head.className="employee-card-header";const kicker=document.createElement("div");kicker.className="card-kicker";kicker.textContent="Identificación institucional";const brand=document.createElement("div");brand.className="institution";brand.textContent="INVAS 2A";const deptHead=document.createElement("div");deptHead.className="card-dept";deptHead.textContent=emp.department||"Departamento";head.append(kicker,brand,deptHead);const body=document.createElement("div");body.className="employee-card-body";const qr=document.createElement("div");qr.className="qr-image";qr.setAttribute("aria-label","Código QR del empleado");const nameLabel=document.createElement("p");nameLabel.className="field-label";nameLabel.textContent="Nombre completo";const name=document.createElement("h3");name.textContent=emp.name||"";const positionLabel=document.createElement("p");positionLabel.className="field-label";positionLabel.textContent="Puesto";const position=document.createElement("p");position.className="position";position.textContent=emp.position||"";const department=document.createElement("p");department.className="department";department.textContent=emp.department||"Sin departamento";const code=document.createElement("div");code.className="employee-code";code.textContent=emp.code||"";body.append(qr,nameLabel,name,positionLabel,position,department);card.append(head,body,code);grid.appendChild(card);if(window.QRCode&&emp.qrToken){
+ const qrInstance=new window.QRCode(qr,{text:emp.qrToken,width:132,height:132,correctLevel:window.QRCode.CorrectLevel.M});
+ // QRCode.js puede insertar canvas e img; conserva solo una representación para evitar QR duplicado al imprimir.
+ const qrCanvas=qr.querySelector("canvas");
+ if(qrCanvas){
+  qr.querySelectorAll("img").forEach(img=>img.remove());
+  qrCanvas.style.setProperty("display","block","important");
+  qrCanvas.style.setProperty("width","132px","important");
+  qrCanvas.style.setProperty("height","132px","important");
+ }else{
+  const qrImg=qr.querySelector("img");
+  if(qrImg){
+   qrImg.style.setProperty("display","block","important");
+   qr.querySelectorAll("canvas").forEach(canvas=>canvas.remove());
+   qrImg.style.setProperty("display","block","important");
+   qrImg.style.setProperty("width","132px","important");
+   qrImg.style.setProperty("height","132px","important");
+  }
+ }
+}else qr.textContent="No se pudo generar el QR."})}
+$("printCards").addEventListener("click",()=>window.print());
+async function loadAttendance(){if(!currentUser)return;try{const today=getDateKey(),snap=await getDocs(collection(db,"attendance"));attendance=snap.docs.map(x=>({id:x.id,...x.data()})).filter(x=>x.date===today);renderAttendance()}catch(e){console.error(e);$("scannerMessage").textContent="No se pudo cargar la asistencia."}}
+function renderAttendance(){$("attendanceList").replaceChildren();attendance.forEach(item=>{const tr=document.createElement("tr");[item.time,item.code,item.name,item.position,item.punctuality].forEach((v,i)=>{const td=document.createElement("td");if(i===4){const b=document.createElement("span");b.className="badge";if(v==="Tardío"){b.style.background="#fee2e2";b.style.color="#991b1b"}else if(v==="Margen final"){b.style.background="#fef3c7";b.style.color="#92400e"}b.textContent=v||"";td.appendChild(b)}else td.textContent=v||"";tr.appendChild(td)});$("attendanceList").appendChild(tr)});$("attendanceEmpty").style.display=attendance.length?"none":"block"}
+function showScanResult(message,seq){if(seq!==scanSequence)return;clearTimeout(resultTimeout);$("scanResult").hidden=false;$("scanResult").textContent=message;resultTimeout=setTimeout(()=>{if(seq===scanSequence){$("scanResult").hidden=true;$("scanResult").textContent=""}},10000)}
+async function registerAttendance(token,seq){const emp=employees.find(x=>x.qrToken===token);if(!emp){showScanResult("QR no reconocido. Verifica que la tarjeta pertenezca a un empleado registrado.",seq);return}if(emp.status==="Inactivo"){showScanResult("Este empleado está inactivo. No se registró la asistencia.",seq);return}const p=getClockParts(),date=getDateKey(),time=getTimeLabel(p),punct=getPunctuality(p),ref=doc(db,"attendance",`${emp.id}_${date}`);try{const created=await runTransaction(db,async tx=>{const old=await tx.get(ref);if(old.exists())return false;tx.set(ref,{employeeId:emp.id,code:emp.code,name:emp.name,position:emp.position,department:emp.department,date,time,punctuality:punct.label,createdAt:serverTimestamp()});return true});showScanResult(created?`Asistencia registrada: ${emp.name} · ${time} · ${punct.label}`:`${emp.name} ya tiene una entrada registrada hoy. Se conservó el primer registro.`,seq);await loadAttendance()}catch(err){console.error("Error al registrar asistencia:",err);showScanResult("No se pudo guardar la asistencia. Revisa las reglas de Firestore.",seq)}}
+async function stopScanner(){$("stopScanner").hidden=true;if(scanner){const active=scanner;scanner=null;try{await active.stop()}catch(e){console.warn("La cámara ya estaba detenida.",e)}try{await active.clear()}catch(e){console.warn("No se pudo limpiar el lector.",e)}}$("scannerMessage").textContent="Cámara detenida."}
+$("startScanner").addEventListener("click",async()=>{if(!currentUser)return;if(scanner){$("scannerMessage").textContent="La cámara ya está activa.";return}if(!window.Html5Qrcode){$("scannerMessage").textContent="No se pudo cargar el lector QR. Recarga la página.";return}if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){$("scannerMessage").textContent="Este navegador no permite acceder a la cámara. Abre el sitio mediante HTTPS y usa un navegador compatible.";return}$("startScanner").disabled=true;$("scannerMessage").textContent="Solicitando acceso a la cámara...";try{scanner=new window.Html5Qrcode("reader");const cameras=await window.Html5Qrcode.getCameras();if(!cameras||!cameras.length)throw new Error("NO_CAMERA_FOUND");const camera=cameras.find(c=>/back|rear|environment|trasera|posterior/i.test(c.label||""))||cameras[0];await scanner.start(camera.id,{fps:10,qrbox:{width:250,height:250},aspectRatio:1},decoded=>{const token=decoded.trim();if(!token)return;const now=Date.now(),previous=lastScans.get(token);if(previous&&now-previous<10000)return;lastScans.set(token,now);for(const [t,time] of lastScans){if(now-time>60000)lastScans.delete(t)}const seq=++scanSequence;$("scannerMessage").textContent="QR leído. Procesando...";$("scanResult").hidden=false;$("scanResult").textContent="Procesando asistencia...";registerAttendance(token,seq)},()=>{});$("scannerMessage").textContent="Cámara activa. Vista en vivo habilitada; enfoca una tarjeta QR.";$("stopScanner").hidden=false}catch(err){console.error("Error de cámara:",err);let detail="No se pudo iniciar la cámara.";if(err&&err.message==="NO_CAMERA_FOUND")detail="No se encontró ninguna cámara conectada.";else if(err&&(/permission|denied|notallowed/i.test(err.name||"")+" "+(err.message||"")))detail="El navegador bloqueó el acceso. Revisa los permisos de cámara del sitio.";else if(err&&(/notreadable|trackstart|could not start/i.test((err.name||"")+" "+(err.message||""))))detail="La cámara está ocupada o no se pudo iniciar. Cierra otras aplicaciones que la usen e inténtalo de nuevo.";else if(!window.isSecureContext)detail="La cámara requiere una conexión segura HTTPS.";else if(err&&err.message)detail+=" Detalle: "+err.message;$("scannerMessage").textContent=detail+" Puedes volver a intentarlo.";if(scanner){try{await scanner.stop()}catch{}try{await scanner.clear()}catch{}scanner=null}}finally{$("startScanner").disabled=false}});
+$("stopScanner").addEventListener("click",stopScanner);
+onAuthStateChanged(auth,async user=>{currentUser=user;if(!user){await stopScanner();scanSequence++;clearTimeout(resultTimeout);$("scanResult").hidden=true;$("scanResult").textContent="";employees=[];attendance=[];renderEmployees();renderAttendance();setAdminVisible(false);$("loginMessage").textContent="Inicia sesión para acceder al panel.";return}setAdminVisible(true);$("loginMessage").textContent="Sesión iniciada.";try{await loadEmployees();showPage("employeesPage")}catch(err){console.error("Error cargando empleados:",err);$("employeeMessage").textContent="No se pudieron cargar los empleados. Revisa las reglas de Firestore."}});
+</script>
+</body>
+</html>
