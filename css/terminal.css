@@ -1,0 +1,11 @@
+/* v3 · reloj compacto dentro de la tarjeta del lector */
+.time-card.compact{padding:16px 14px;margin-bottom:18px;border-radius:12px}
+.time-card.compact .time-title{font-size:12px;letter-spacing:.05em}
+.time-card.compact .clock{font-size:clamp(32px,7vw,48px);margin:6px 0 2px}
+.time-card.compact .date-text{font-size:14px}
+.time-strip-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.time-card.compact .time-status{margin-top:0;padding:8px 16px;font-size:13px}
+.time-card.compact .deadline{margin-top:0;padding:8px 14px;display:flex;align-items:center;gap:10px;font-size:13px}
+.time-card.compact .deadline strong{display:inline;margin-top:0;font-size:16px}
+/* v3 · vista espejo de la cámara */
+#reader.mirror video{transform:scaleX(-1)!important;-webkit-transform:scaleX(-1)!important}
