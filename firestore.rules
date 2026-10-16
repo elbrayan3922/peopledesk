@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // UID del administrador (Firebase Console → Authentication → Usuarios → "UID de usuario").
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid == 'REEMPLAZA_CON_TU_UID_DE_ADMIN';
+    }
+
+    // Registro hecho desde la terminal pública con un QR válido.
+    function validScan(id) {
+      let d = request.resource.data;
+      let t = get(/databases/$(database)/documents/qrTokens/$(d.qrToken)).data;
+      return d.keys().hasOnly(['employeeId','code','name','position','department',
+                               'date','time','method','punctuality','type','qrToken','createdAt'])
+          && d.method == 'qr'
+          && d.createdAt == request.time
+          && d.employeeId == t.employeeId
+          && t.status != 'Inactivo'
+          && (id == d.employeeId + '_' + d.date
+              || id == d.employeeId + '_' + d.date + '_salida');
+    }
+
+    match /employees/{id}   { allow read, write: if isAdmin(); }
+    match /permissions/{id} { allow read, write: if isAdmin(); }
+
+    // Copia mínima del empleado indexada por token QR. Solo se puede leer UN documento
+    // si conoces su token (que es aleatorio); no se puede listar.
+    match /qrTokens/{token} {
+      allow get: if true;
+      allow list, write: if isAdmin();
+    }
+
+    match /attendance/{id} {
+      allow get: if true;                       // la terminal comprueba duplicados (ids no adivinables)
+      allow list, update, delete: if isAdmin(); // solo el admin ve el listado y puede corregir
+      allow create: if isAdmin() || validScan(id);
+    }
+  }
+}
