@@ -9,7 +9,7 @@ service cloud.firestore {
       return request.auth != null
           && request.auth.token.firebase.sign_in_provider == 'google.com'
           && request.auth.token.email_verified == true
-          && request.auth.token.email in ['REEMPLAZA_CON_TU_CORREO_DE_GOOGLE@gmail.com'];
+          && request.auth.token.email in ['elbrayan3922@gmail.com'];
     }
 
     // Registro hecho desde la terminal pública con un QR válido.
