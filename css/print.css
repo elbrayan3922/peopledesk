@@ -1,0 +1,21 @@
+@media print{
+ @page{size:auto;margin:8mm}
+ *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ html,body{background:#fff!important}
+ header,main>h1,main>.subtitle,.tabs,#loginSection,footer,.no-print{display:none!important}
+ main{margin:0!important;padding:0!important;max-width:none!important}
+ #cardsPage{display:block!important}
+ #cardsPage>.card{padding:0!important;box-shadow:none!important;margin:0!important;background:transparent!important}
+ #cardsPage>.card>.section-title,#cardsPage>.card>.subtitle{display:none!important}
+ #cardsGrid{display:grid!important;grid-template-columns:repeat(2,65mm);gap:6mm 8mm;align-items:start;justify-content:center}
+ .employee-card{break-inside:avoid;page-break-inside:avoid;border:1px solid #555;box-shadow:none;width:65mm;max-width:65mm;border-radius:5px;margin:0}
+ .employee-card-header{background:var(--dept-color)!important;color:white!important;border-bottom:4px solid var(--dept-border)!important}
+ .employee-card.hr-card .employee-card-header{background:linear-gradient(135deg,#111827 0%,#111827 38%,#be123c 100%)!important;border-bottom-color:#7f1d1d!important}
+ .employee-card-header .card-kicker,.employee-card-header .card-dept,.employee-card-header .institution,.employee-card-header span{color:white!important}
+ .employee-card-body p,.employee-card-body h3,.employee-card-body .field-label,.employee-card .year{color:#172033!important}
+ .employee-card .department{background:#f1f5f9!important;border:1px solid #cbd5e1!important;border-left:4px solid var(--dept-color)!important;color:#334155!important}
+ .employee-code{background:var(--dept-color)!important;color:white!important;border-top:3px solid var(--dept-border)!important}
+ .employee-card.hr-card .employee-code{background:linear-gradient(135deg,#111827 0%,#be123c 100%)!important;border-top-color:#7f1d1d!important}
+ .qr-image{width:38mm;height:38mm;min-height:38mm;padding:2mm;margin:8px auto;border:1px solid #e2e8f0!important;overflow:hidden;background:#fff!important}
+ .qr-image img,.qr-image canvas{display:block!important;max-width:34mm!important;max-height:34mm!important;width:34mm!important;height:34mm!important;object-fit:contain}
+}
