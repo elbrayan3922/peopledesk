@@ -1,0 +1,17 @@
+/* v2 · consola de registros */
+#devConsoleToggle{position:fixed;right:14px;bottom:14px;z-index:9999;margin:0;padding:8px 13px;font-size:12px;background:#141413;color:#e8e6dc;border:1px solid #403e3a;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#devConsoleToggle:hover{background:#262522}
+#devConsoleToggle span{display:inline-block;min-width:18px;margin-left:6px;padding:1px 6px;border-radius:999px;background:#dc2626;color:#fff;font-size:11px;text-align:center}
+#devConsole{position:fixed;right:14px;bottom:58px;z-index:9999;width:min(600px,calc(100vw - 28px));height:min(320px,50vh);display:flex;flex-direction:column;background:#141413;color:#e8e6dc;border:1px solid #403e3a;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden}
+.dc-head{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid #403e3a;background:#1c1b19}
+.dc-head strong{flex:1;font-size:12px}
+#devConsole button{margin:0;padding:5px 10px;font-size:11px;background:#33312e;color:#e8e6dc;border:1px solid #4a4843;border-radius:7px}
+#devConsole button:hover{background:#403e3a}
+#devConsoleList{flex:1;overflow:auto;padding:8px 10px;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.dc-line{white-space:pre-wrap;word-break:break-word;color:#c2c0b6}
+.dc-line time{color:#8a877d;margin-right:8px}
+.dc-line.dc-info{color:#e8e6dc}
+.dc-line.dc-warn{color:#fbbf24}
+.dc-line.dc-error{color:#f87171}
+.dc-line.dc-debug{color:#8a877d}
+.dc-empty{color:#8a877d}
