@@ -1,2 +1,0 @@
-# peopledesk
-REGISTRO DE ASISTENCIA
